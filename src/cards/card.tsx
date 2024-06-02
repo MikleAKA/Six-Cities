@@ -1,4 +1,3 @@
-import ScrollTop from '../components/scroll-top.tsx';
 import {NavLink} from 'react-router-dom';
 import {memo, useState} from 'react';
 import {AuthorizationStatus, Place} from '../types/offer.tsx';
@@ -7,11 +6,12 @@ import {updateFavourite} from '../api/api-action.ts';
 import {FavouritesStatus} from '../consts/favourites-consts.ts';
 import {updateFavouritesCounter} from '../store/action.ts';
 import {rareCard} from '../consts/cities.tsx';
+import ScrollTop from '../components/scroll-top.tsx';
 
 function Card(place: Place): JSX.Element {
   const isAuthorized = useAppSelector((state) => state.user.authorizationStatus);
   const favouritesCounter = useAppSelector((state) => state.favourites.favouritesCounter);
-  const [activeOfferId, setActiveOfferId] = useState('');
+  const [, setActiveOfferId] = useState('');
   const [isFavourite, setIsFavourite] = useState(place.isFavorite);
   const dispatch = useAppDispatch();
   function handleMouseOver() {
@@ -77,7 +77,7 @@ function Card(place: Place): JSX.Element {
         {rareCard(place.rating)}
         <h2 className="place-card__name">
           <ScrollTop />
-          <NavLink to={`/offer/${activeOfferId}`}>{place.roomName}</NavLink>
+          <NavLink to={`/offer/${place.id}`} data-testid="place--title__test">{place.roomName}</NavLink>
         </h2>
         <p className="place-card__type">{place.roomType}</p>
       </div>
