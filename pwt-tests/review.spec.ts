@@ -52,7 +52,7 @@ test.describe('Review sending tests', () => {
       page.click('button[type="submit"]'),
     ]);
 
-    await page.waitForSelector('.offer__gallery');
+    await page.waitForSelector('.offer__reviews');
 
     const reviewTextFetched = await page.locator('.reviews__text').first().textContent();
     const authorName = await page.locator('.reviews__user-name').first().textContent();

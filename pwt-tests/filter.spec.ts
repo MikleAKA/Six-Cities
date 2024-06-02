@@ -94,20 +94,20 @@ test.describe('Filter test', () => {
 
     const articlesBefore = await page.$$('.cities__card.place-card');
 
-    const ratingBefore: string[] = [];
+    const ratingBefore: number[] = [];
     for (const article of articlesBefore) {
       const spanElement = await article.$('span[style]');
       if (spanElement) {
         const widthStyle = await spanElement.evaluate(node => node.style.width);
         const widthPercentage = widthStyle.substring(0, widthStyle.length - 1);
-        ratingBefore.push(widthPercentage);
+        ratingBefore.push(Number(widthPercentage));
         console.log(`Width: ${widthPercentage}%`);
       } else {
         console.log('No span element with style found in this article.');
       }
     }
     console.log(ratingBefore);
-    const sortedHandRating = ratingBefore.sort().reverse();
+    const sortedHandRating = ratingBefore.sort((a, b) => b - a);
     console.log(sortedHandRating);
 
     await page.click('.places__sorting-type');
@@ -117,19 +117,21 @@ test.describe('Filter test', () => {
 
     const articlesAfter = await page.$$('.cities__card.place-card');
 
-    const ratingAfter: string[] = [];
+    const ratingAfter: number[] = [];
     for (const article of articlesAfter) {
       const spanElement = await article.$('span[style]');
       if (spanElement) {
         const widthStyle = await spanElement.evaluate(node => node.style.width);
         const widthPercentage = widthStyle.substring(0, widthStyle.length - 1);
-        ratingAfter.push(widthPercentage);
+        ratingAfter.push(Number(widthPercentage));
         console.log(`Width: ${widthPercentage}%`);
       } else {
         console.log('No span element with style found in this article.');
       }
     }
     console.log(ratingAfter);
+    console.log(typeof ratingAfter);
+    console.log(typeof sortedHandRating);
 
     expect (sortedHandRating).toEqual(ratingAfter);
 
