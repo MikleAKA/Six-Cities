@@ -52,6 +52,7 @@ test.describe('Review sending tests', () => {
       page.click('button[type="submit"]'),
     ]);
 
+    await page.reload();
     await page.waitForSelector('.offer__reviews');
 
     const reviewTextFetched = await page.locator('.reviews__text').first().textContent();
